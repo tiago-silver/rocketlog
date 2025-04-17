@@ -1,4 +1,4 @@
-import { Request, Response, NextFunction } from "express";
+import { Request, Response} from "express";
 
 class UsersController {
     async create(request: Request, response:Response){
