@@ -1,4 +1,4 @@
-//  "editor.guides.bracketPairs": true,
+
 import { app } from "@/app"
 
 const PORT = 3333

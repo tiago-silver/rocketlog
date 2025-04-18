@@ -2,7 +2,7 @@ import { AppError } from "@/utils/AppError";
 import { Request, Response, NextFunction } from "express";
 import { ZodError } from "zod";
 
-function erroHandling(error:any, request: Request, response: Response, next: NextFunction){
+function errorHandling(error:any, request: Request, response: Response, next: NextFunction){
     // Verifica se o error é do cliente ou servidor
     if(error instanceof AppError ){
         return response.status(error.statusCode).json({message: error.message})
@@ -15,8 +15,8 @@ function erroHandling(error:any, request: Request, response: Response, next: Nex
             issues: error.format()
         })
     }
-    return response.json({message: error.message})
+    return response.status(500).json({message: error.message})
 
 }
 
-export{erroHandling}
+export{errorHandling}
