@@ -28,16 +28,19 @@ class SessionsController {
             throw new AppError("Email ou senha incorretos!", 401)
         }
 
-        // Depois de tudo verificado criat o token de autenticação de usuário
-
+        // Depois de tudo verificado criar o token de autenticação de usuário
         const { secret, expiresIn} = authConfig.jwt
 
         const token = sign({role: user.role ?? "Customer"},secret, {
             subject: user.id,
             expiresIn
         })
+        // Depois de autenticado e criado o token do usuário, deve inserir o token no cabeçalho da requisição
 
-        return response.json({token})
+        // Retirar o password do retorno
+        const {password: hashedPassword, ...userWithOutPassword} = user
+
+        return response.json({token, user: userWithOutPassword})
     }
 
 }
