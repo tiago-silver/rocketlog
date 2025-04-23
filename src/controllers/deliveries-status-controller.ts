@@ -11,21 +11,28 @@ class DeliveriesStatusController {
 
         })
         const bodySchema = z.object({
-        status: z.enum(["Processing", "Shipped" , "Delivered"])
+            status: z.enum(["Processing", "Shipped" , "Delivered"])
         })
 
         const {id} = paramsSchema.parse(request.params)
         const { status} = bodySchema.parse(request.body)
 
         await prisma.delivery.update({
-        data:{
-            status
-        },
-        where: {
-            id
-        }
-        }
+            data:{
+                status
+            },
+            where: {id}
+            }
         )
+
+        await  prisma.deliveryLog.create({
+            data: {
+                deliveryId: id,
+                description: status
+            },
+        
+            
+        })
         return response.json()
     }
 

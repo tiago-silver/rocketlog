@@ -6,7 +6,6 @@ function verifyUserAuthorization(role: string[]){
         if(!request.user){
             throw new AppError("Unauthorized", 401)
         }
-        console.log(request.user.role)
 
         if(!role.includes(request.user.role)){
             throw new AppError("Unauthorized", 401)
