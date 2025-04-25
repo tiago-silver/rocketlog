@@ -24,4 +24,28 @@ describe("UsersController",() => {
         
         user_id = response.body.id
     })
+
+    it("should throw an error if user with the same email already exist", async () =>{
+         const response = await request(app).post("/users").send({
+            name: "User Test 2",
+            email: "test@gmail.com",
+            password: "password123"
+        })
+
+        expect(response.status).toBe(400)
+        expect(response.body.message).toBe("User with same email already exists!")
+
+    })
+
+    it("should throw a validation error if email is valid", async () =>{
+        const response = await request(app).post("/users").send({
+           name: "User Test",
+           email: "invalid-email",
+           password: "password123"
+       })
+
+       expect(response.status).toBe(400)
+       expect(response.body.message).toBe("Validation error")
+
+   })
 })
