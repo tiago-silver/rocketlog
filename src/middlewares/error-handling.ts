@@ -11,7 +11,7 @@ function errorHandling(error:any, request: Request, response: Response, next: Ne
     if(error instanceof ZodError){
         return response.status(400).json({
             message: "Validation error",
-            // retona os problemas
+            // retorna os problemas
             issues: error.format()
         })
     }

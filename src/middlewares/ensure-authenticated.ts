@@ -10,7 +10,7 @@ interface TokenPayload {
 
 function ensureAuthenticated(request:Request, response:Response, next:NextFunction){
     try {
-        // Recupera o token do cabeçaho da requisiçao
+        // Recupera o token do cabeçalho da requisição
         const authHeader = request.headers.authorization
 
         if(!authHeader){

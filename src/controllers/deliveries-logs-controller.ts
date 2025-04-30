@@ -58,6 +58,9 @@ class DeliveriesLogsController {
                 logs: {select: {description: true, deliveryId: true, updatedAt:true}}
             }
         })
+         if(!delivery){
+            return response.json({message: "delivery not found!"})
+         }
         //Verifica se o usuário logado está buscando logs de um pedido dele mesmo
         if(request.user?.role === "customer" && request.user.id !== delivery?.userId){
             throw new AppError("The user can only view their deliveries", 401)
